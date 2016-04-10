@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:sec="http://www.springframework.org/schema/security"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/mvc
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:component-scan base-package="com.chejixing"/>
+	
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:jdbc-user-service data-source-ref="dataSource"
+			  users-by-username-query=
+			    "select username,pwd,enabled from xuser where username=?"
+			  authorities-by-username-query=
+			    "select user.username, role.role from user_role as ur join xuser as user on ur.user_id=user.id join xrole as role on ur.role_id=role.id  where user.username =?  " />
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+	
+	<sec:http security="none" pattern="/css/**" />
+	<sec:http security="none" pattern="/js/**" />
+	<sec:http security="none" pattern="/font/**" />
+	<sec:http security="none" pattern="/img/**" />
+	
+	<sec:http auto-config='true'>
+		<sec:intercept-url pattern="/signin.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<sec:intercept-url pattern="/**" access="ROLE_USER" />
+		<sec:form-login login-page='/signin.jsp' default-target-url='/index.action' always-use-default-target="true" authentication-failure-url="/signin.jsp?login_error=1"/>
+	</sec:http>
+	<tx:annotation-driven transaction-manager="txManager"/>
+</beans>

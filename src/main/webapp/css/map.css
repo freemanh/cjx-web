@@ -1,0 +1,47 @@
+.mapText {
+    color: #ff0000;
+    border-width: 0;
+    border-style: hidden;
+    background-color: rgb(255, 255, 255);
+    filter: alpha(opacity=0.1);
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.mapText p {
+    position: relative;
+}
+
+/*顶端空白*/
+.margin-top-2px {
+    margin-top: 2px;
+}
+
+body, #allmap {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    font-size: 12px;
+    margin: 0;
+}
+
+/*查询面板*/
+#queryPanel {
+    width: 100%;
+    margin: 0 auto;
+    clear: both;
+    font-size: 18px;
+    line-height: 68px;
+    font-weight: bold;
+}
+
+#header {
+    font-size: 18px;
+    line-height: 68px;
+    font-weight: bold;
+    box-shadow: inset -1px 0px 5px 2px #eff9f9;
+    margin-left: -20px;
+    margin-right: -20px;
+    background-color: #fdfdfd;
+    border-bottom: 1px solid #efeef3;
+}
